@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TiDelete } from "react-icons/ti";
+import { TiPlusOutline, TiMinusOutline, TiDeleteOutline } from "react-icons/ti";
 import { AppContext } from "../context/AppContext";
 
 const ExpenseItem = (props) => {
@@ -12,27 +12,41 @@ const ExpenseItem = (props) => {
     });
   };
 
-  const increaseAllocation = (name) => {
+  const changeAllocation = (name, type) => {
     const expense = {
       name: name,
       cost: 10,
     };
 
     dispatch({
-      type: "ADD_EXPENSE",
+      type: type,
       payload: expense,
     });
   };
 
   return (
     <tr>
-      <td>{props.name}</td>
-      <td>£{props.cost}</td>
+      <td className="unselectable">{props.name}</td>
+      <td className="unselectable">£{props.cost}</td>
       <td>
-        <button onClick={() => increaseAllocation(props.name)}>+</button>
+        <div>
+          <TiPlusOutline
+            size="1.5em"
+            onClick={() => changeAllocation(props.name, "ADD_EXPENSE")}
+          ></TiPlusOutline>
+        </div>
       </td>
       <td>
-        <TiDelete size="1.5em" onClick={handleDeleteExpense}></TiDelete>
+        <TiMinusOutline
+          size="1.5em"
+          onClick={() => changeAllocation(props.name, "RED_EXPENSE")}
+        ></TiMinusOutline>
+      </td>
+      <td>
+        <TiDeleteOutline
+          size="1.5em"
+          onClick={handleDeleteExpense}
+        ></TiDeleteOutline>
       </td>
     </tr>
   );
