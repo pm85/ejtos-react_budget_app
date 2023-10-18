@@ -3,7 +3,7 @@ import { TiPlusOutline, TiMinusOutline, TiDeleteOutline } from "react-icons/ti";
 import { AppContext } from "../context/AppContext";
 
 const ExpenseItem = (props) => {
-  const { dispatch } = useContext(AppContext);
+  const { currency, dispatch } = useContext(AppContext);
 
   const handleDeleteExpense = () => {
     dispatch({
@@ -27,7 +27,10 @@ const ExpenseItem = (props) => {
   return (
     <tr>
       <td className="unselectable">{props.name}</td>
-      <td className="unselectable">£{props.cost}</td>
+      <td className="unselectable">
+        {currency}
+        {props.cost}
+      </td>
       <td>
         <div>
           <TiPlusOutline
