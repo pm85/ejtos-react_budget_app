@@ -40,3 +40,16 @@
 .unselectable {
   user-select: none;
 }
+
+.money-input-field {
+  max-width: 8rem;
+}
+
+.slim-alerts {
+  padding: 0.5rem !important;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /** Add this line to prevent wrapping */
+}

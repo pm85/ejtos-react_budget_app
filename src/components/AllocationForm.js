@@ -6,9 +6,22 @@ const AllocationForm = () => {
 
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
-  const [action, setAction] = useState("");
+  const [action, setAction] = useState("Add");
+
+  const handleExpenseChange = (event) => {
+    const inputElement = event.target;
+    const numericValue = inputElement.valueAsNumber;
+    if (!Number.isInteger(numericValue)) {
+      inputElement.value = ""; // Clear the field if it's not an integer.
+    }
+    setCost(numericValue);
+  };
 
   const submitEvent = () => {
+    // No valid department name has been selected via dropdown yet.
+    if (name === "") {
+      alert("Please choose a department.");
+    }
     if (cost > remaining) {
       alert(
         `The value cannot exceed remaining funds  ${currency} ${remaining}`
@@ -16,36 +29,44 @@ const AllocationForm = () => {
       setCost("");
       return;
     }
-
+    // Create payload object to dispatch.
     const expense = {
       name: name,
       cost: parseInt(cost),
     };
-    if (action === "Reduce") {
-      dispatch({
-        type: "RED_EXPENSE",
-        payload: expense,
-      });
-    } else {
-      dispatch({
-        type: "ADD_EXPENSE",
-        payload: expense,
-      });
+
+    switch (action) {
+      case "Reduce":
+        dispatch({
+          type: "RED_EXPENSE",
+          payload: expense,
+        });
+        break;
+      case "Add":
+        dispatch({
+          type: "ADD_EXPENSE",
+          payload: expense,
+        });
+        break;
+      default:
+        alert(`Unknown action: ${action}`);
     }
   };
+
   // Why do the input groups split when window width is reduced?
   return (
     <div>
       <div className="row justify-content-start">
-        <div className="col-sm-3 mb-3">
+        <div className="col-12 col-md-auto mb-3">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="inputGroupSelect01">
-                Department
-              </label>
-            </div>
+            <label
+              className="input-group-text input-group-prepend"
+              htmlFor="inputGroupSelect01"
+            >
+              Department
+            </label>
             <select
-              className="custom-select"
+              className="form-select"
               id="inputGroupSelect01"
               onChange={(event) => setName(event.target.value)}
             >
@@ -71,15 +92,16 @@ const AllocationForm = () => {
             </select>
           </div>
         </div>
-        <div className="col-sm-3 mb-3">
+        <div className="col-12 col-md-auto mb-3">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="inputGroupSelect02">
-                Allocation
-              </label>
-            </div>
+            <label
+              className="input-group-text input-group-prepend"
+              htmlFor="inputGroupSelect02"
+            >
+              Allocation
+            </label>
             <select
-              className="custom-select"
+              className="form-select"
               id="inputGroupSelect02"
               onChange={(event) => setAction(event.target.value)}
             >
@@ -92,32 +114,25 @@ const AllocationForm = () => {
             </select>
           </div>
         </div>
-        <div className="col-sm-3 mb-3">
+        <div className="col-12 col-md-auto mb-3">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <label className="input-group-text">{currency}</label>
-            </div>
+            <label className="input-group-text input-group-prepend">
+              {currency}
+            </label>
             <input
               className="form-control"
               required="required"
               type="number"
               id="cost"
               value={cost}
-              style={{ maxWidth: "12rem" }}
-              onChange={(event) => {
-                const inputElement = event.target;
-                const numericValue = inputElement.valueAsNumber;
-                if (!Number.isInteger(numericValue)) {
-                  inputElement.value = ""; // Clear the field if it's not an integer
-                }
-                setCost(numericValue);
-              }}
+              onChange={(event) => handleExpenseChange(event)}
             ></input>
-            <div className="input-group-append">
-              <button className="btn btn-primary" onClick={submitEvent}>
-                Save
-              </button>
-            </div>
+            <button
+              className="btn btn-primary input-group-append"
+              onClick={submitEvent}
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>

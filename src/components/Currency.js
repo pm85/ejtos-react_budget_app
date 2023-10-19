@@ -5,21 +5,19 @@ const Currency = () => {
   const { dispatch, currency } = useContext(AppContext);
   const [newCurrency, setNewCurrency] = useState(currency);
   const handleCurrencyChange = (event) => {
-    console.log("In handle Curreny Change function");
     setNewCurrency(event.target.value);
     dispatch({
       type: "CHG_CURRENCY",
       payload: event.target.value,
     });
   };
+
   return (
-    <div className="alert alert-secondary">
-      <div className="input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">Currency</span>
-        </div>
+    <div className="alert alert-warning slim-alerts">
+      <div className="input-group justify-content-center">
+        <span className="input-group-text input-group-prepend">Currency:</span>
         <select
-          className="custom-select"
+          className="form-select money-input-field"
           id="inputGroupSelectCurrency"
           onChange={handleCurrencyChange}
           value={newCurrency}
