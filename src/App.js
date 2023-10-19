@@ -19,7 +19,7 @@ const App = () => {
   return (
     //shadow-sm rounded
     <AppProvider>
-      <nav className="navbar navbar-light bg-light shadow">
+      <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
           <span className="navbar-brand mb-0 h1 justify-content-center">
             Company Budget Allocation
@@ -27,7 +27,7 @@ const App = () => {
         </div>
       </nav>
       <div className="container">
-        <div className="row align-items-center gx-3 gy-0 mt-3 pt-3 shadow rounded">
+        <div className="row align-items-center gx-3 gy-0 mt-3 pt-3 shadow-sm">
           <div className="col-12 col-lg-auto">
             <Budget />
           </div>
@@ -41,7 +41,7 @@ const App = () => {
             <Currency />
           </div>
         </div>
-        <div className="row gx-3 gy-0 mt-3 shadow rounded">
+        <div className="row gx-3 gy-0 mt-3 shadow-sm">
           <h3 className="mt-3">Allocation</h3>
           <div className="row mt-3">
             <div className="col">
@@ -49,7 +49,7 @@ const App = () => {
             </div>
           </div>
         </div>
-        <div className="row gx-3 gy-0 mt-3 shadow rounded">
+        <div className="row gx-3 gy-0 mt-3 shadow-sm">
           <h3 className="mt-3">Change allocation</h3>
           <div className="row mt-3">
             <div className="col">
